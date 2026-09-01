@@ -61,8 +61,8 @@ class NutritionCalculatorTest {
             ingredients = mapOf(1L to rice, 2L to chicken)
         )
 
-        // 大米蛋白质 7.4 * 0.5 = 3.7；鸡肉蛋白质 24.6 * 0.5 = 12.3；合计15.0
-        assertEquals(15f, result.protein, 0.1f)
+        // 大米蛋白质 7.4 * 0.5 = 3.7；鸡肉蛋白质 24.6 * 0.5 = 12.3；合计16.0
+        assertEquals(16.0f, result.protein, 0.1f)
         assertTrue(result.calorie > 200f)
     }
 

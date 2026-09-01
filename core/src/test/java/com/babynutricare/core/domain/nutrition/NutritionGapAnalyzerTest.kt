@@ -75,7 +75,7 @@ class NutritionGapAnalyzerTest {
     }
 
     @Test
-    fun `达标率计算 - 摄入一半为50%`() {
+    fun `达标率计算 - 摄入一半为50个百分点`() {
         val standard = NutritionStandardRepository.getStandard(AgeGroup.SIX_TO_NINE)
         val actual = NutritionSummary(
             protein = 9f  // 标准18g的一半

@@ -294,9 +294,7 @@ class MealGenerator(
             gap = gap,
             ingredients = availableIngredients,
             usedIngredientIds = usedIngredientIds,
-            baby = baby,
-            monthAge = monthAge,
-            targetRatio = targetRatio
+            monthAge = monthAge
         )
 
         if (selected.isEmpty()) {
@@ -341,16 +339,15 @@ class MealGenerator(
         gap: NutritionGap,
         ingredients: List<Ingredient>,
         usedIngredientIds: Set<Long>,
-        baby: BabyInfo,
-        monthAge: Int,
-        targetRatio: Float
+        monthAge: Int
     ): List<Ingredient> {
-        // 过滤后候选食材
-        val candidates = ingredients.filter { it.id !in usedIngredientIds }
+        // 优先使用未用过的食材；若不足则回退到全部食材（跨餐允许复用，避免餐次无食材）
+        val fresh = ingredients.filter { it.id !in usedIngredientIds }
+        val candidates = if (fresh.size >= 2) fresh else ingredients
 
         // 按缺口优先级打分
         val scored = candidates.map { ingredient ->
-            val score = scoreIngredient(ingredient, gap, monthAge, baby)
+            val score = scoreIngredient(ingredient, gap, monthAge)
             ingredient to score
         }.filter { it.second > 0 }
         .sortedByDescending { it.second }
@@ -384,8 +381,7 @@ class MealGenerator(
     private fun scoreIngredient(
         ingredient: Ingredient,
         gap: NutritionGap,
-        monthAge: Int,
-        baby: BabyInfo
+        monthAge: Int
     ): Float {
         var score = 0f
         val n = ingredient.nutritionInfo

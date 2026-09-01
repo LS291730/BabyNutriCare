@@ -159,7 +159,8 @@ class NutritionGapAnalyzer {
 
     private fun calculateGap(actual: Float, standard: Float): Float {
         val gap = standard - actual
-        return Math.round(gap * 100f) / 100f
+        // 缺口不取负值：摄入过量时缺口为0
+        return if (gap > 0f) Math.round(gap * 100f) / 100f else 0f
     }
 
     private fun rate(actual: Float, standard: Float): Float {
