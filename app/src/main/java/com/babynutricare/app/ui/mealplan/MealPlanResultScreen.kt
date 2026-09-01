@@ -45,7 +45,7 @@ import com.babynutricare.app.ui.theme.BackgroundCream
 import com.babynutricare.app.ui.theme.PrimaryOrange
 import com.babynutricare.app.ui.theme.SecondaryGreen
 import com.babynutricare.app.ui.theme.WarningRed
-import com.babynutricare.core.domain.model.MealSlot
+import com.babynutricare.core.data.model.MealSlot
 import com.babynutricare.core.domain.model.PlannedMeal
 
 /**
@@ -139,8 +139,6 @@ fun MealPlanResultScreen(
                             SavedCard()
                         }
                     }
-
-                    Spacer(modifier = Modifier.height(16.dp))
                 }
             }
         }

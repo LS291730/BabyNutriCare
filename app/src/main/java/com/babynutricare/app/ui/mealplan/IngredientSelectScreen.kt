@@ -95,9 +95,10 @@ fun IngredientSelectScreen(
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             // 月龄提示
-            if (uiState.baby != null) {
+            val baby = uiState.baby
+            if (baby != null) {
                 item {
-                    AgeHintCard(monthAge = uiState.baby.getMonthAge())
+                    AgeHintCard(monthAge = baby.getMonthAge())
                 }
             }
 
@@ -122,8 +123,6 @@ fun IngredientSelectScreen(
                     }
                 }
             }
-
-            Spacer(modifier = Modifier.height(24.dp))
         }
     }
 }
@@ -250,7 +249,7 @@ private fun SelectedBar(
             )
             Spacer(modifier = Modifier.size(8.dp))
             Text(
-                text = "智能配餐（已选$selectedCount种食材）",
+                text = "智能配餐（已选${selectedCount}种食材）",
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold
             )
