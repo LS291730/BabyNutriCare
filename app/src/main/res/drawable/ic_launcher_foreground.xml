@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- 宝宝笑脸图标 -->
+    <group
+        android:scaleX="0.5"
+        android:scaleY="0.5"
+        android:translateX="27"
+        android:translateY="27">
+        <!-- 碗 -->
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M54,30C40,30 30,38 30,48C30,58 40,66 54,66C68,66 78,58 78,48C78,38 68,30 54,30Z" />
+        <!-- 眼睛 -->
+        <path
+            android:fillColor="#FF8A5C"
+            android:pathData="M44,46C44,44.9 44.9,44 46,44C47.1,44 48,44.9 48,46C48,47.1 47.1,48 46,48C44.9,48 44,47.1 44,46Z" />
+        <path
+            android:fillColor="#FF8A5C"
+            android:pathData="M60,46C60,44.9 60.9,44 62,44C63.1,44 64,44.9 64,46C64,47.1 63.1,48 62,48C60.9,48 60,47.1 60,46Z" />
+        <!-- 微笑 -->
+        <path
+            android:fillColor="#FF8A5C"
+            android:pathData="M46,54C50,57 58,57 62,54" />
+    </group>
+</vector>
