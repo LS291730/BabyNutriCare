@@ -57,13 +57,32 @@ class NutritionGapAnalyzer {
         require(totalDays > 0 && remainingDays in 0..totalDays) {
             "非法天数参数: totalDays=$totalDays, remainingDays=$remainingDays"
         }
-        val expectedTotal = standardToSummary(standard)
-        val weekTarget = scaleSummary(expectedTotal, totalDays.toFloat())
-        val remainingTarget = scaleSummary(weekTarget, remainingDays.toFloat() / totalDays)
-        // 已摄入的占剩余目标的比例，用于折算缺口
+        // 剩余天数的总营养目标 = 每日标准 × 剩余天数
+        val dailyTarget = standardToSummary(standard)
+        val remainingTarget = scaleSummary(dailyTarget, remainingDays.toFloat())
+        // 本周已摄入按剩余天数占比折算
         val actualForRemaining = scaleSummary(actual, remainingDays.toFloat() / totalDays)
 
-        return analyzeGap(actualForRemaining, remainingTarget)
+        return NutritionGap(
+            protein = positiveGap(remainingTarget.protein - actualForRemaining.protein),
+            fat = positiveGap(remainingTarget.fat - actualForRemaining.fat),
+            carbohydrate = positiveGap(remainingTarget.carbohydrate - actualForRemaining.carbohydrate),
+            calcium = positiveGap(remainingTarget.calcium - actualForRemaining.calcium),
+            iron = positiveGap(remainingTarget.iron - actualForRemaining.iron),
+            zinc = positiveGap(remainingTarget.zinc - actualForRemaining.zinc),
+            vitaminA = positiveGap(remainingTarget.vitaminA - actualForRemaining.vitaminA),
+            vitaminC = positiveGap(remainingTarget.vitaminC - actualForRemaining.vitaminC),
+            vitaminD = positiveGap(remainingTarget.vitaminD - actualForRemaining.vitaminD),
+            vitaminE = positiveGap(remainingTarget.vitaminE - actualForRemaining.vitaminE),
+            vitaminB1 = positiveGap(remainingTarget.vitaminB1 - actualForRemaining.vitaminB1),
+            vitaminB2 = positiveGap(remainingTarget.vitaminB2 - actualForRemaining.vitaminB2),
+            folicAcid = positiveGap(remainingTarget.folicAcid - actualForRemaining.folicAcid),
+            calorie = positiveGap(remainingTarget.calorie - actualForRemaining.calorie)
+        )
+    }
+
+    private fun positiveGap(value: Float): Float {
+        return if (value > 0f) Math.round(value * 100f) / 100f else 0f
     }
 
     /**

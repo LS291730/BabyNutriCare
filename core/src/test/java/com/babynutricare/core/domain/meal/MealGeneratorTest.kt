@@ -217,7 +217,7 @@ class MealGeneratorTest {
         )
 
         result.meals.forEach { meal ->
-            assertTrue("餐次${meal.mealSlot.name}应有食材", meal.ingredients.isNotEmpty())
+            assertTrue("餐次${meal.mealSlot.displayName}应有食材", meal.ingredients.isNotEmpty())
             meal.ingredients.forEach { portion ->
                 assertTrue("食材用量应为正数", portion.amount > 0f)
                 assertTrue("食材应有名称", portion.ingredientName.isNotBlank())

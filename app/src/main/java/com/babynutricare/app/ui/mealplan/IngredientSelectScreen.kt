@@ -107,7 +107,7 @@ fun IngredientSelectScreen(
                 if (categoryIngredients.isNotEmpty()) {
                     item {
                         Text(
-                            text = category.name,
+                            text = category.label,
                             style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.Bold,
                             modifier = Modifier.padding(top = 8.dp)

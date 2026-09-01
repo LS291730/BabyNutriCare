@@ -47,22 +47,15 @@ class MealPlanResultViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val planTypeName: String = savedStateHandle.get<String>("planType") ?: "INGREDIENT_BASED"
-    private val selectedIds: Set<Long> = parseSelectedIds(
-        savedStateHandle.get<String>("selectedIds")
-    )
+    private val selectedIds: Set<Long> = savedStateHandle
+        .get<String>("selectedIds")
+        ?.split(",")
+        ?.mapNotNull { it.trim().toLongOrNull() }
+        ?.toSet()
+        ?: emptySet()
 
     private val _uiState = MutableStateFlow(MealPlanResultUiState())
     val uiState = _uiState.asStateFlow()
-
-    /**
-     * 解析选中的食材ID（逗号分隔字符串）
-     */
-    private fun parseSelectedIds(raw: String?): Set<Long> {
-        if (raw.isNullOrBlank()) return emptySet()
-        return raw.split(",")
-            .mapNotNull { it.trim().toLongOrNull() }
-            .toSet()
-    }
 
     init {
         generatePlan()

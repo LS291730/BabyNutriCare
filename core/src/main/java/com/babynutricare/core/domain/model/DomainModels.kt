@@ -1,6 +1,7 @@
 package com.babynutricare.core.domain.model
 
 import com.babynutricare.core.data.model.MealSlot
+import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 import java.time.LocalDate
 
@@ -11,7 +12,7 @@ import java.time.LocalDate
 data class DietRecord(
     val id: Long = 0,
     val recordId: String,
-    val date: LocalDate,
+    @Contextual val date: LocalDate,
     val mealSlot: MealSlot,
     val ingredients: List<IngredientPortion>,
     val notes: String = "",
@@ -26,7 +27,7 @@ data class DietRecord(
  * 配餐方案类型
  */
 @Serializable
-enum class MealPlanType(val id: Int, val name: String) {
+enum class MealPlanType(val id: Int, val label: String) {
     WEEKLY(0, "周维度配餐"),
     DAILY(1, "日维度配餐"),
     INGREDIENT_BASED(2, "现有食材配餐")
@@ -36,7 +37,7 @@ enum class MealPlanType(val id: Int, val name: String) {
  * 配餐方案状态
  */
 @Serializable
-enum class MealPlanStatus(val id: Int, val name: String) {
+enum class MealPlanStatus(val id: Int, val label: String) {
     DRAFT(0, "草稿"),
     USED(1, "已使用"),
     EXPIRED(2, "已过期")
@@ -51,8 +52,8 @@ data class MealPlan(
     val planId: String,
     val planName: String,
     val planType: MealPlanType,
-    val startDate: LocalDate,
-    val endDate: LocalDate,
+    @Contextual val startDate: LocalDate,
+    @Contextual val endDate: LocalDate,
     val status: MealPlanStatus = MealPlanStatus.DRAFT,
     val meals: List<PlannedMeal> = emptyList(),
     val nutritionAnalysis: NutritionSummary = NutritionSummary(),
@@ -68,7 +69,7 @@ data class PlannedMeal(
     val id: Long = 0,
     val mealPlanId: Long = 0,
     val mealSlot: MealSlot,
-    val date: LocalDate,
+    @Contextual val date: LocalDate,
     val ingredients: List<IngredientPortion>,
     val nutritionSummary: NutritionSummary = NutritionSummary(),
     val cookingSteps: List<String> = emptyList(),

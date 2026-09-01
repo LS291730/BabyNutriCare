@@ -3,7 +3,7 @@ package com.babynutricare.core.data.model
 /**
  * 食材分类枚举
  */
-enum class IngredientCategory(val id: Int, val name: String, val icon: String, val sortOrder: Int) {
+enum class IngredientCategory(val id: Int, val label: String, val icon: String, val sortOrder: Int) {
     GRAIN(0, "谷物类", "ic_grain", 0),
     VEGETABLE(1, "蔬菜类", "ic_vegetable", 1),
     FRUIT(2, "水果类", "ic_fruit", 2),
