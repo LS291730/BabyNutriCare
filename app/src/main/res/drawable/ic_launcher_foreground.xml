@@ -4,26 +4,20 @@
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-    <!-- 宝宝笑脸图标 -->
-    <group
-        android:scaleX="0.5"
-        android:scaleY="0.5"
-        android:translateX="27"
-        android:translateY="27">
-        <!-- 碗 -->
-        <path
-            android:fillColor="#FFFFFF"
-            android:pathData="M54,30C40,30 30,38 30,48C30,58 40,66 54,66C68,66 78,58 78,48C78,38 68,30 54,30Z" />
-        <!-- 眼睛 -->
-        <path
-            android:fillColor="#FF8A5C"
-            android:pathData="M44,46C44,44.9 44.9,44 46,44C47.1,44 48,44.9 48,46C48,47.1 47.1,48 46,48C44.9,48 44,47.1 44,46Z" />
-        <path
-            android:fillColor="#FF8A5C"
-            android:pathData="M60,46C60,44.9 60.9,44 62,44C63.1,44 64,44.9 64,46C64,47.1 63.1,48 62,48C60.9,48 60,47.1 60,46Z" />
-        <!-- 微笑 -->
-        <path
-            android:fillColor="#FF8A5C"
-            android:pathData="M46,54C50,57 58,57 62,54" />
-    </group>
+    <!-- 碗：底部圆角矩形 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M30,34 L78,34 L78,44 A24,24 0 0 1 30,44 Z" />
+    <!-- 左眼 -->
+    <path
+        android:fillColor="#FF8A5C"
+        android:pathData="M44,44 A2,2 0 1 1 48,44 A2,2 0 1 1 44,44 Z" />
+    <!-- 右眼 -->
+    <path
+        android:fillColor="#FF8A5C"
+        android:pathData="M60,44 A2,2 0 1 1 64,44 A2,2 0 1 1 60,44 Z" />
+    <!-- 微笑：闭合贝塞尔曲线 -->
+    <path
+        android:fillColor="#FF8A5C"
+        android:pathData="M46,56 C50,62 58,62 62,56 Z" />
 </vector>

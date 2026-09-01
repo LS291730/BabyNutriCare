@@ -31,11 +31,12 @@ jobs:
           ls $ANDROID_HOME
           ls $ANDROID_HOME/platforms 2>/dev/null || echo "no platforms dir"
 
-      # 4. 配置 Gradle 8.5（更稳定，修复资源处理缓存问题）
+      # 4. 配置 Gradle 8.5（禁用全部缓存，避免损坏的缓存目录被复用）
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
         with:
           gradle-version: '8.5'
+          cache-disabled: true
 
       # 5. 指定 Android SDK 路径
       - name: Write local.properties
@@ -50,12 +51,14 @@ jobs:
           ANDROID_HOME: ${{ env.ANDROID_HOME }}
 
       - name: Clean
-        run: gradle clean --no-daemon --no-build-cache
+        run: |
+          gradle clean --no-daemon --no-build-cache || true
+          rm -rf ~/.gradle/.tmp ~/.gradle/caches || true
         env:
           ANDROID_HOME: ${{ env.ANDROID_HOME }}
 
       - name: Build Debug APK
-        run: gradle assembleDebug --no-daemon --no-build-cache
+        run: gradle assembleDebug --no-daemon --no-build-cache --max-workers=2 --stacktrace
         env:
           ANDROID_HOME: ${{ env.ANDROID_HOME }}
 
