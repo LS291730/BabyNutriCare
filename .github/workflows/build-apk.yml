@@ -44,21 +44,13 @@ jobs:
           echo "sdk.dir=$ANDROID_HOME" > local.properties
           cat local.properties
 
-      # 6. 清理并构建 Debug APK（先跑测试，再打包）
-      - name: Run Unit Tests
-        run: gradle :core:testDebugUnitTest --no-daemon --no-build-cache
-        env:
-          ANDROID_HOME: ${{ env.ANDROID_HOME }}
+      # 6. 清理Gradle解析缓存（resolution result损坏是根因）
+      - name: Clean Gradle Caches
+        run: rm -rf ~/.gradle/caches ~/.gradle/.tmp || true
 
-      - name: Clean
-        run: |
-          gradle clean --no-daemon --no-build-cache || true
-          rm -rf ~/.gradle/.tmp ~/.gradle/caches || true
-        env:
-          ANDROID_HOME: ${{ env.ANDROID_HOME }}
-
-      - name: Build Debug APK
-        run: gradle assembleDebug --no-daemon --no-build-cache --max-workers=2 --stacktrace
+      # 7. 单个Gradle进程完成测试+构建（避免多进程并发访问解析缓存）
+      - name: Build and Test
+        run: gradle :core:testDebugUnitTest assembleDebug --no-daemon --no-build-cache --max-workers=2 --stacktrace
         env:
           ANDROID_HOME: ${{ env.ANDROID_HOME }}
 
