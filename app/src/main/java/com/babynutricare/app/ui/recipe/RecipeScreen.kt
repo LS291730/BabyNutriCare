@@ -173,7 +173,8 @@ fun RecipeScreen(
                         )
                     }
                 }
-                Spacer(Modifier.height(88.dp))
+                // 底部留白，避免食材列表被悬浮按钮遮挡
+                item { Spacer(Modifier.height(96.dp)) }
             }
         }
 
